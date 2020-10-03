@@ -1,7 +1,4 @@
-import { createApp, ref } from "vue/dist/vue.esm-browser.js";
-window.myapp = createApp({
-	setup() {
-		const msg = ref("XE Vue");
-		return { msg };
-	},
-}).mount("#app");
+import { createApp } from "vue/dist/vue.esm-browser.js";
+
+import App from "./basics-reactivity-options-composition-api.js";
+window.myapp = createApp(App).mount("#app");
