@@ -1,5 +1,5 @@
 <template>
-  <MyCard w="50%">
+  <MyCard w="50%" c="white">
     <template v-slot:head>
       <MyButton v-if="logoutName" :text="logoutName" @click="logout($router)" />
       <header v-else>Enter your credential</header>
@@ -42,7 +42,7 @@ import MyInput from "../toolbox/MyInput.vue";
 import MyCard from "../toolbox/MyCard.vue";
 import type { updateEvent } from "../toolbox/MyInput.vue";
 import { Router /* useRouter */ } from "vue-router";
-import { authStore as auth, Credentials } from "./auth-store";
+import { authStore, Credentials } from "./auth-store";
 type FormState<T> = {
   [K in keyof T]: { valid: boolean; value: T[K] };
 };
@@ -88,19 +88,19 @@ export default {
     },
     returnUrl() {
       // console.info("CURR $route", this.$route);
-      return this.$route.query?.returnUrl; //OPPURE this.$router.currentRoute.value?.query?.returnUrl;
+      return this.$route.query?.returnUrl ?? "/"; //OPPURE this.$router.currentRoute.value?.query?.returnUrl || "/";
     },
   },
   setup() {
     // const router = useRouter();
 
     const logout = (router: Router) => {
-      auth.logout();
+      authStore.logout();
       router.push("/about");
     };
 
     const login = (creds: Credentials, returnTo: string, router: Router) => {
-      auth
+      authStore
         .login(creds)
         .then(() => router.push({ path: returnTo }))
         .catch(alert);
@@ -109,14 +109,15 @@ export default {
     return {
       login,
       logout,
-      logoutName: auth.logoutName,
+      logoutName: authStore.logoutName,
     };
   },
 };
 </script>
 
 <style scoped>
-button {
+button,
+header {
   font-size: 1.5em;
 }
 </style>

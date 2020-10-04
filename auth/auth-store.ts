@@ -9,14 +9,19 @@ export type Credentials = { username: string; password: string };
 
 //CLASSE CHE FA DA CONTENITORE DELLO STATO DI AUTENTIFICAZIONE + LOGICHE PER LEGGERE (//QUERY:) E MANIPOLARLO (//COMMAND:)
 class AuthStore {
-	public state: AuthState;
+	private state: AuthState;
 	constructor() {
 		this.state = reactive({ userName: null }); //NOTARE UTILIZZO API Reactivity
 	}
 
 	//QUERY: METODO PER VERIFICARE SE L'UTENTE E' LOGGATO O MENO - RICHIAMATO DA LOGICA Guard in router.ts
-	isLoggedIn() {
+	isLoggedIn(): boolean {
 		return !!this.state.userId;
+	}
+
+	//QUERY: GETTER PER AVERE IL VALORE DELL'UTENTE CORRENTE o 0 -> USATO DA Posts PER CARICARE I DATI -> fetchPostsForUser()
+	get currUserId(): number {
+		return this.state.userId || 0;
 	}
 
 	//QUERY: GETTERS PER AVERE LOGOUT+UTENTE CORRENTE UTILIZZANDO COMPUTED Reactivity -> USATO IN Login.vue

@@ -1,6 +1,13 @@
 <template>
   <h1>Welcome to {{ msg }}</h1>
+  <!-- <Suspense>
+    <template #default> -->
   <router-view></router-view>
+  <!-- </template>
+    <template #fallback>
+      <img src="/assets/loading.gif" alt="Loading, please wait..." />
+    </template>
+  </Suspense> -->
 </template>
 
 <script setup lang="ts">

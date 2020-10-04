@@ -10,17 +10,16 @@
 
 <script>
 export default {
-  props: ["w", "bg"],
+  props: ["w"],
 };
 </script>
 
-<style scoped vars="{ w, bg }">
+<style scoped vars="{ w }">
 .card {
+  margin: 5px;
   border: 1px solid silver;
-  background: var(--bg, none);
   border-radius: 8px;
   width: var(--w, 300px);
-  margin: 5px 0px;
   cursor: pointer;
   box-shadow: 0px 1px 3px darkgrey;
   transition: 0.2s;
@@ -40,6 +39,9 @@ header {
   font-size: 1.5em;
   border-bottom: 1px solid silver;
   min-height: 2em;
+  max-height: 5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 footer {

@@ -3,7 +3,7 @@
     <router-link v-for="m in menu" :to="m.url" v-bind:key="m.url">
       {{ m.link }}
     </router-link>
-    <a href="/#/login">LOGOUT</a>
+    <a href="/login">LOGOUT</a>
   </nav>
   <router-view></router-view>
 </template>

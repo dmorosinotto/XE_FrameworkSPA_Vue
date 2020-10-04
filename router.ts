@@ -7,7 +7,7 @@ import { default as PostDetail } from "./posts/PostDetail.vue";
 import { authStore } from "./auth/auth-store";
 
 export const router = createRouter({
-	history: createWebHashHistory(), // createWebHashHistory("/same/mount/baseurl/")
+	history: createWebHistory(), // createWebHashHistory("/same/mount/baseurl/")
 	routes: [
 		{ name: "login", path: "/login", component: Login },
 		{
@@ -20,7 +20,6 @@ export const router = createRouter({
 					name: "posts",
 					path: "posts",
 					component: Posts,
-					children: [{ name: "post-detail", path: ":id", component: PostDetail }],
 				},
 				{
 					name: "direct-post",
