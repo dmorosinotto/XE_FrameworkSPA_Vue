@@ -27,11 +27,11 @@ nav > *::after {
 
 a:visited,
 a {
-  color: #41b883;
+  color: var(--vue-green, silver);
   text-decoration: none;
 }
 a:hover {
-  color: white;
+  color: var(--text, white);
   text-decoration: underline;
 }
 </style>
