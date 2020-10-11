@@ -1,3 +1,6 @@
+#Slides
+*.key
+
 # Logs
 logs
 *.log

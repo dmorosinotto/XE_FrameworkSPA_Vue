@@ -1,4 +1,4 @@
-import { defineAsyncComponent } from "vue"; //"vue/dist/vue.esm-browser.js"; //FIX PER PROBLEMA TEMPORANEO DI Vite
+import { defineAsyncComponent, h } from "vue"; //"vue/dist/vue.esm-browser.js"; //FIX PER PROBLEMA TEMPORANEO DI Vite
 import { createRouter, createWebHistory, createWebHashHistory } from "vue-router"; //"vue-router/dist/vue-router.esm.js" //FIX PER PROBLEMA TEMPORANEO DI Vite
 import { default as MainMenu } from "./MainMenu.vue";
 import { default as Login } from "./auth/Login.vue";
@@ -16,6 +16,11 @@ export const router = createRouter({
 			component: MainMenu,
 			//ESEMPIO DI NESTED ROUTES CONFIG
 			children: [
+				{ path: "", component: { render: ()=>h("iframe", {
+					src: "http://localhost:8080",
+					width: "90%",
+					height: "250px",
+				})}},
 				{
 					name: "posts",
 					path: "posts",

@@ -1,4 +1,4 @@
-import { ref, reactive, watchEffect } from "vue/dist/vue.esm-browser.js";
+import { ref, reactive, watchEffect } from "./vue.esm-browser.js";
 
 export default {
 	template: `Welcome to {{ msg }}
@@ -19,6 +19,7 @@ export default {
 			return `XE FrameworkSPA - ${this.about.toUpperCase()} - ${timeUTC(new Date())}`;
 		},
 		tick() {
+			console.log("..."); //3s tick
 			return timeUTC(this.time); //COMPUTED CHE FORMATTA this.time <- ESPORTATO DA COMPOSITION API
 		},
 	},
@@ -26,12 +27,7 @@ export default {
 		choose() {
 			const frameworks = ["Angular", "Blazor", "Vue.js", "React"];
 			this.about = frameworks[Math.floor(Math.random() * frameworks.length)];
-		},
-		eur(n) {
-			let fmt = n.toFixed(2) + " €";
-			console.log("round ", n, " -> ", fmt);
-			return fmt;
-		},
+		}
 	},
 	watch: {
 		about: function (val, oldVal) {
@@ -43,8 +39,10 @@ export default {
 		const time = ref(new Date()); //EQUIVALE A data() PER DATI PRIMITIVI
 		const tot = reactive({ a: 0.2, b: 0.1 }); // CON OGGETTI COMPLESSI
 		const updateTime = () => (time.value = new Date()); //EQUIVALE A methods
+
 		window.setInterval(updateTime, 3000);
 		watchEffect(() => console.warn("TOTALE=", tot.a + tot.b, typeof tot.a));
+
 		console.info("CONTROLLARE IN CONSOLE + PROVARE  myapp.tot.b=42"); //TODO
 		return { tot, time, updateTime };
 	},

@@ -11,7 +11,8 @@
 		"XE"
 	],
 	"scripts": {
-		"start": "yarn vite"
+		"start": "yarn vite",
+		"basics": "cd reactivity   &&   npx http-server -g -o"
 	},
 	"main": "index.js",
 	"repository": "https://github.com/dmorosinotto/XE_FrameworkSPA_Vue",
