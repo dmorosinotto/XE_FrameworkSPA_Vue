@@ -16,11 +16,6 @@ export const router = createRouter({
 			component: MainMenu,
 			//ESEMPIO DI NESTED ROUTES CONFIG
 			children: [
-				{ path: "", component: { render: ()=>h("iframe", {
-					src: "http://localhost:8080",
-					width: "90%",
-					height: "250px",
-				})}},
 				{
 					name: "posts",
 					path: "posts",
@@ -30,6 +25,12 @@ export const router = createRouter({
 					name: "direct-post",
 					path: "post/:id",
 					component: PostDetail,
+				}, //RICORDARSI DI AVVIARE ANCHE npm run basics
+				{ path: "", component: { render: ()=>h("iframe", {
+						src: "http://localhost:8080",
+						width: "90%",
+						height: "250px",
+					})}
 				},
 			],
 			//ESEMPIO ROUTEGUARD IN INGRESSO (PER VALIDARE AUTH -> REDIRECT login)
