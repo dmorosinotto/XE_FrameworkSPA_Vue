@@ -3,6 +3,7 @@
     <router-link v-for="m in menu" :to="m.url" v-bind:key="m.url">
       {{ m.link }}
     </router-link>
+    <router-link :to="{name:'direct-post', params:{ id: 3 }}">LINK NAME+PARAMS</router-link>
     <a href="/login">LOGOUT</a>
   </nav>
   <router-view></router-view>
@@ -12,7 +13,6 @@
 export const menu = [
   { url: "/", link: "Root" },
   { url: "/posts", link: "Posts" },
-  { url: "/post/3", link: "Direct Post" },
   { url: "/about", link: "Lazy About" },
   { url: "/NOTEXIST", link: "Not exist" },
 ];

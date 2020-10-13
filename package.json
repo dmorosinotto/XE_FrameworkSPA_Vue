@@ -11,8 +11,10 @@
 		"XE"
 	],
 	"scripts": {
-		"start": "yarn vite",
-		"basics": "cd reactivity   &&   npx http-server -g -o"
+		"start": "npx concurrently \"npm run dev:vue\" \"npm run dev:basics\" --kill-others ",
+		"dev:vue": "yarn vite",
+		"dev:basics": "npx http-server reactivity -g",
+		"reactivity": "npm run dev:basics -- -o"
 	},
 	"main": "index.js",
 	"repository": "https://github.com/dmorosinotto/XE_FrameworkSPA_Vue",

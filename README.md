@@ -16,8 +16,8 @@ yarn add vue@next vue-router@next
 
 I also decide to use the **great** [TypeScript](https://www.typescriptlang.org) support to develop all the solution, you can find more about the new SFC syntax that I used here:
 
--   `<script setup>` [read more](https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-script-setup.md)
--   `<style vars>` [read more](https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-style-variables.md)
+- `<script setup>` [read more](https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-script-setup.md)
+- `<style vars>` [read more](https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-style-variables.md)
 
 ## Try it
 
@@ -27,10 +27,11 @@ To try my project you have to
 git clone https://github.com/dmorosinotto/XE_FrameworkSPA_Vue
 cd XE_FrameworkSPA_Vue
 yarn install
-npm start
+yarn run basics
+yarm vite
 
 -- OR SIMPLY RUN IT WITH
-yarn vite
+npm start
 ```
 
 Open your browser pointing to [http://localhost:3000](http://localhost:3000) and enjoy the code 🤓
@@ -45,10 +46,10 @@ index.html
 
 ```html
 <html>
-	<body>
-		<div id="app">Welcome to {{msg}}</div>
-		<script type="module" src="index.js"></script>
-	</body>
+  <body>
+    <div id="app">Welcome to {{msg}}</div>
+    <script type="module" src="index.js"></script>
+  </body>
 </html>
 ```
 
@@ -57,10 +58,10 @@ index.js
 ```js
 import { createApp, ref } from "vue/dist/vue.esm-browser.js";
 window.myapp = createApp({
-	setup() {
-		const msg = ref("XE Vue");
-		return { msg };
-	},
+  setup() {
+    const msg = ref("XE Vue");
+    return { msg };
+  },
 }).mount("#app");
 ```
 
@@ -92,9 +93,9 @@ Another thing you can try is open F12 browser Console and just type `myapp.msg="
 
 If you need more details about Vue3 take a look at:
 
--   Official Vue3 [docs](https://v3.vuejs.org)
--   Great free intro course by [VueMastery](https://www.vuemastery.com/courses/intro-to-vue-3/intro-to-vue3)
--   And so many in-deep insight about Vue [Reactivity](https://www.vuemastery.com/courses/vue3-deep-dive-with-evan-you/vue3-overview) system explained by Evan You and Gregg Pollack
--   [Evan You](@yyx990803) global Vue3 announcement [video](https://youtu.be/Vp5ANvd88x0?t=343)
--   [Tim Benniks](@timbenniks) [talk](https://www.youtube.com/watch?v=gojCkw5Ih7E) about Vite & VitePress
--   Same code sample by [Lachlan Miller](lmiller1990) free Vue3 [course](https://www.udemy.com/course/complete-vuejs-3-crash-course-composition-api-vue-router-vuex/?couponCode=029EF9F9B2CA89B7D862&s=03)
+- Official Vue3 [docs](https://v3.vuejs.org)
+- Great free intro course by [VueMastery](https://www.vuemastery.com/courses/intro-to-vue-3/intro-to-vue3)
+- And so many in-deep insight about Vue [Reactivity](https://www.vuemastery.com/courses/vue3-deep-dive-with-evan-you/vue3-overview) system explained by Evan You and Gregg Pollack
+- [Evan You](@yyx990803) global Vue3 announcement [video](https://youtu.be/Vp5ANvd88x0?t=343)
+- [Tim Benniks](@timbenniks) [talk](https://www.youtube.com/watch?v=gojCkw5Ih7E) about Vite & VitePress
+- Same code sample by [Lachlan Miller](lmiller1990) free Vue3 [course](https://www.udemy.com/course/complete-vuejs-3-crash-course-composition-api-vue-router-vuex/?couponCode=029EF9F9B2CA89B7D862&s=03)

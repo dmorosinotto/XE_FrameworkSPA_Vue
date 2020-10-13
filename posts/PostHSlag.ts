@@ -7,8 +7,7 @@ import { RouterLink } from "vue-router";
 const PostHSlag = defineComponent({
 	render() {
 		// create kebab-case id from the text contents of the children
-		const slag = getChildrenTextContent(this.$slots.default())
-			.toLowerCase()
+		const slag = this.title.toLowerCase()
 			.replace(/\W+/g, "-") // replace non-word characters with dash
 			.replace(/(^-|-$)/g, ""); // remove leading and trailing dashes
 
@@ -16,10 +15,9 @@ const PostHSlag = defineComponent({
 			h(
 				RouterLink,
 				{
-					name: slag,
-					to: "/post/" + this.pid + "#" + slag,
+					to: "/post/" + this.pid + "/" + slag,
 				},
-				this.$slots.default()
+				this.title
 			),
 		]);
 	},
@@ -32,25 +30,11 @@ const PostHSlag = defineComponent({
 			type: Number,
 			required: true,
 		},
+		title: {
+			type: String,
+			default: "Hello world"
+		}
 	},
 });
-
-/** Recursively get text from children nodes */
-function getChildrenTextContent(children: VNodeNormalizedChildren) {
-	console.log(children);
-	return Array.isArray(children)
-		? children
-				.map((node) => {
-					return typeof node !== "object"
-						? String(node)
-						: Array.isArray(node)
-						? getChildrenTextContent(node)
-						: node.children
-						? getChildrenTextContent(node.children)
-						: "";
-				})
-				.join("")
-		: String(children);
-}
 
 export default PostHSlag;

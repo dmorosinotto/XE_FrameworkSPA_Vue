@@ -23,7 +23,7 @@ export const router = createRouter({
 				},
 				{
 					name: "direct-post",
-					path: "post/:id",
+					path: "post/:id/:slag?",
 					component: PostDetail,
 				}, //RICORDARSI DI AVVIARE ANCHE npm run basics
 				{ path: "", component: { render: ()=>h("iframe", {

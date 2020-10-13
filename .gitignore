@@ -1,5 +1,5 @@
-#Slides
-*.key
+# My Material
+_ignore/
 
 # Logs
 logs

@@ -5,9 +5,7 @@
   <div class="posts">
     <MyCard v-for="post in S.filterPosts" :key="post.id" w="30%">
       <template v-slot:head>
-        <PostHSlag :pid="post.id" :level="hLevel(post.info.likes)">
-          {{ post.title }}
-        </PostHSlag>
+        <PostHSlag :pid="post.id" :level="hLevel(post.info.likes)" :title="post.title" />
       </template>
       {{ post.body }}
       <template v-slot:foot>

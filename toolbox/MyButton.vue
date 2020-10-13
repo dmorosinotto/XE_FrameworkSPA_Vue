@@ -16,9 +16,10 @@ declare function emit(event: "click", cmd: string): void;
 declare function emit(event: "do", { cmd: string, info: unknown }): void;
 
 // EQUIVALE A VECCHIO computed
-import { computed } from "vue";
+import { computed, reactive } from "vue";
+
 export const CMD = computed(
-  () => props.text.toUpperCase() + ((props as any)?.disabled ? "❌" : "✔️") //NOTARE TYPESAFE IN BASE A declare props
+  () => props.text.toUpperCase() //NOTARE TYPESAFE IN BASE A declare props
 );
 export const border = computed(() =>
   !props?.background

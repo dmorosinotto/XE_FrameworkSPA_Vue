@@ -9,7 +9,9 @@ const TAGS = ["angular", "blazor", "react", "vue", "typescript", ".net c#", "jsx
 export function readINFOS(userId?: number): Record<string, Info> {
 	let INFOS: { [id: string]: Info };
 	try {
-		INFOS = JSON.parse(localStorage.getItem(getKey(userId)));
+		const infos = localStorage.getItem(getKey(userId));
+		if (!infos) throw "NOTHING SAVED, GENERATE FAKE!";
+		INFOS = JSON.parse(infos);
 	} catch {
 		//GENERATE FAKE INFO FOR EACH POST (1..100)
 		INFOS = Array(100)

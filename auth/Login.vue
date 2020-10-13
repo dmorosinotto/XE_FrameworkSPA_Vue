@@ -17,7 +17,7 @@
         @update="updField"
         type="password"
         required
-        :minlength="5"
+        :minlength="4"
       />
       <br /><my-button v-on:click="goBack" text="🔙"></my-button> &nbsp;
       <MyButton
