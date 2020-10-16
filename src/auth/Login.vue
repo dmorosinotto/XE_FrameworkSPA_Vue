@@ -1,10 +1,10 @@
 <template>
   <MyCard w="50%" c="white">
     <template v-slot:head>
-      <MyButton v-if="logoutName" :text="logoutName" @click="logout($router)" />
+      <MyButton v-if="isLoggedIn" :text="logoutName" :info="$router" @do="doLogout($event.info)" />
       <header v-else>Enter your credential</header>
     </template>
-    <form @submit.prevent="alert(frmValue)">
+    <form @submit.prevent="doLogin(frmValue, returnUrl, $router)">
       <my-input
         name="username"
         v-bind:value="frm.username.value"
@@ -19,15 +19,9 @@
         required
         :minlength="4"
       />
-      <br /><my-button v-on:click="goBack" text="🔙"></my-button> &nbsp;
-      <MyButton
-        type="submit"
-        text="Login"
-        background="green"
-        :info="frmValue"
-        :disabled="isInvalid"
-        @do="login($event.info, returnUrl, $router)"
-      />
+      <br />
+      <my-button v-on:click="goBack" text="🔙"></my-button> &nbsp;
+      <MyButton type="submit" text="Login" background="green" />
     </form>
     <template v-slot:foot>
       <!-- <pre> VALID={{ !isInvalid }} FRM= {{ frm }} </pre> -->
@@ -42,7 +36,8 @@ import MyInput from "../toolbox/MyInput.vue";
 import MyCard from "../toolbox/MyCard.vue";
 import type { updateEvent } from "../toolbox/MyInput.vue";
 import { Router /* useRouter */ } from "vue-router";
-import { authStore, Credentials } from "./auth-store";
+import { login, logout, logInOut, currUserId, Credentials } from "./auth-store";
+import { computed } from 'vue';
 type FormState<T> = {
   [K in keyof T]: { valid: boolean; value: T[K] };
 };
@@ -61,9 +56,6 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-    alert(what) {
-      window.alert(JSON.stringify(what));
-    },
     updField(payload: updateEvent) {
       const field = payload.name.toLowerCase();
       this.frm[field].value = payload.value;
@@ -72,9 +64,7 @@ export default {
   },
   computed: {
     isInvalid() {
-      return Object.values(this.frm as FormState<Credentials>).some(
-        (f) => !f.valid
-      );
+      return Object.values(this.frm as FormState<Credentials>).some((f) => !f.valid);
     },
     frmValue() {
       let creds: Credentials = Object.entries(
@@ -88,28 +78,28 @@ export default {
     },
     returnUrl() {
       // console.info("CURR $route", this.$route);
-      return this.$route.query?.returnUrl ?? "/"; //OPPURE this.$router.currentRoute.value?.query?.returnUrl || "/";
+      return this.$route.query?.returnUrl ?? "/"; 
+      //OPPURE this.$router.currentRoute.value?.query?.returnUrl || "/";
     },
   },
   setup() {
     // const router = useRouter();
-
-    const logout = (router: Router) => {
-      authStore.logout();
-      router.push("/about");
+    const doLogout = (router: Router) => {
+      logout();
+      router.push("/");
     };
 
-    const login = (creds: Credentials, returnTo: string, router: Router) => {
-      authStore
-        .login(creds)
+    const doLogin = (creds: Credentials, returnTo: string, router: Router) => {
+      login(creds)
         .then(() => router.push({ path: returnTo }))
         .catch(alert);
     };
 
     return {
-      login,
-      logout,
-      logoutName: authStore.logoutName,
+      doLogin,
+      doLogout,
+      isLoggedIn: currUserId,
+      logoutName: logInOut
     };
   },
 };

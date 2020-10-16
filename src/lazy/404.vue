@@ -21,7 +21,7 @@ header {
   left: 0px;
   top: 0px;
   position: fixed;
-  background-image: url(/assets/404-one-piece.jpg);
+  background-image: url(../assets/404-one-piece.jpg);
 }
 h1 {
   position: absolute;

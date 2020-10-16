@@ -1,5 +1,6 @@
 import { reactive, computed } from "vue";
 import { Info, readINFOS, saveINFOS } from "./local-infos";
+import { currUserId, BASEAPI } from "../auth/auth-store";
 
 const baseapi = "https://jsonplaceholder.typicode.com";
 
@@ -17,16 +18,17 @@ class PostStore {
 		this.state = reactive({ posts: [], currHashtag: "" }); //NOTARE UTILIZZO API DI Reactivity System DI VUE
 	}
 
-	//LOGICA DI CARICAMENTO DEI DATI POSTS + INFOS IN BASE ALL'UTENTE CORRENTE -> authStore.userId
-	async fetchPostsForUser(userId?: number) {
+	//LOGICA DI CARICAMENTO DEI DATI POSTS + INFOS IN BASE ALL'UTENTE CORRENTE -> authStore.currUserId
+	async fetchPostsForUser() {
+		const userId = currUserId.value;
 		try {
 			//LEGGO I DATI DEI POSTS DALLA API PUBBLICA
-			const api = userId ? `${baseapi}/posts?userId=${userId}` : `${baseapi}/posts`;
+			const api = !userId ? `${baseapi}/posts` : `${baseapi}/posts?userId=${userId}`;
 			const res = await window.fetch(api);
 			const posts = (await res.json()) as Post[];
 			//LEGGO LE INFOS (Likes+Tags) DAL localStorage
 			const infos = readINFOS(userId);
-			this.state.posts = posts.map((p) => {
+			this.state.posts = posts.map(p => {
 				p.info = infos ? infos[String(p.id)] : { hashtags: ["FAKE"], likes: 0 }; //AGGANCIO likes + hashtags AI DATI DEL POST
 				return p;
 			});
@@ -40,22 +42,22 @@ class PostStore {
 		}
 	}
 
-	saveLikesForUser(userId?: number) {
+	saveLikesForUser() {
 		const INFOS: Record<string, Info> = this.state.posts.reduce((infos, p) => {
 			//ESTRAGGO LA MAPPATURA [postId] -> info { likes, hashtags }
 			infos[String(p.id)] = p.info;
 			return infos;
-		}, {});
+		}, {} as Record<string, Info>);
 		//SALVO LE PREFERENZE DELL'UTENTE SU localStorage
-		saveINFOS(INFOS, userId);
+		saveINFOS(INFOS, currUserId.value);
 	}
 
 	//LOGICA DI QUERY -> GETTERS ESTRATTA DA App.vue E CENTRALIZZATA NELLO STORE
 	private _filterPosts = computed(() => {
 		// const tag = currHashtag.value; // GESTIONE CLASSICA setHashtag FATTA CON EVENTI + currHashtag LOCALE
-		const tag = this.state.currHashtag.toLowerCase();
+		const tag = this.state.currHashtag?.toLowerCase();
 		return tag
-			? this.state.posts.filter((p) => p.info.hashtags.some((t) => t.toLowerCase().includes(tag)))
+			? this.state.posts.filter(p => p.info.hashtags.some(t => t.toLowerCase().includes(tag)))
 			: this.state.posts;
 	});
 	get filterPosts() {

@@ -1,20 +1,20 @@
 <template>
   <nav>
-    <router-link v-for="m in menu" :to="m.url" v-bind:key="m.url">
-      {{ m.link }}
-    </router-link>
+    <router-link to="login">{{logInOut}}</router-link>
     <router-link :to="{name:'direct-post', params:{ id: 3 }}">LINK NAME+PARAMS</router-link>
-    <a href="/login">LOGOUT</a>
+    <router-link v-for="m in menu" :to="m.url" v-bind:key="m.url">
+      {{ m.link.toUpperCase() }}
+    </router-link>
   </nav>
   <router-view></router-view>
 </template>
 
 <script setup lang="ts">
+export { logInOut } from "./auth/auth-store";
 export const menu = [
-  { url: "/", link: "Root" },
   { url: "/posts", link: "Posts" },
-  { url: "/about", link: "Lazy About" },
   { url: "/NOTEXIST", link: "Not exist" },
+  { url: "/extra", link: "EXTRA" },
 ];
 export default {};
 </script>

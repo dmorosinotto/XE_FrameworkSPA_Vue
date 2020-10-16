@@ -21,7 +21,8 @@ export function readINFOS(userId?: number): Record<string, Info> {
 				let ids = (i / 10).toFixed(2);
 				let info = {
 					likes: (i % 10) * 5,
-					hashtags: [...new Set([TAGS[ids[0]], TAGS[ids[2]], TAGS[ids[3]]]).values()],
+					//@ts-ignore
+					hashtags: [...new Set([TAGS[ids[0]], TAGS[ids[2]], TAGS[ids[3]]]).values()]
 				};
 				infos[postId] = info; //INFOS[post.id] = { likes: 0-45, hashtags: [2/3 TAG univoci]}
 				return infos;

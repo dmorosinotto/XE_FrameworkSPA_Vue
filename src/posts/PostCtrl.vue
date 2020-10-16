@@ -1,29 +1,22 @@
 <template>
-  <button @click="incLike">❤️ {{ info.likes }}</button><br />
-  <!-- GESTIONE CLASSICA setHashtag FATTA CON EVENTI PostCtrl => MyCard => App -->
-  <!-- <span v-for="tag in info.hashtags" @click="setHashtag(tag)">{{ tag }}</span> -->
+  <MyButton :disabled="!currUserId" @click="incLike" :text="'❤️ '+ info.likes" /><br />
 
   <!-- GESTIONE setHashtag FATTA TRAMITE Store (currHashtag SHARED STATE) PER EVITARE BUBBLE UP -->
   <span v-for="tag in info.hashtags" :key="tag" @click="S.setHashtag(tag)">#{{ tag }}</span>
 </template>
 
 <script setup="props, { emit }" lang="ts">
-import { reactive } from 'vue';
+import { computed } from 'vue';
 import type { Info } from "./local-infos";
+export { default as MyButton} from "../toolbox/MyButton.vue";
 export { postStore as S } from "./post-store";
+export { currUserId } from "../auth/auth-store";
 
 declare const props: { info: Info };
-/*
-// GESTIONE CLASSICA setHashtag FATTA CON EVENTI child => parent => App
-declare function emit(event: "setHashtag", payload: string): void;
-export function setHashtag(tag: string) {
-  emit("setHashtag", tag);
-}
-*/
 
-// GESTIONE CLASSICA like FATTA CON EVENTI child => parent => App store
+// GESTIONE CLASSICA like FATTA CON EVENTI child => parent => Post store
 declare function emit(event: "like", payload: Info): void;
-export function incLike(tag: string) {
+export function incLike() {
   emit("like", props.info);
 }
 

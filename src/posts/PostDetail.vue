@@ -18,10 +18,11 @@
 import { ref, watch, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 export { default as MyCard } from "../toolbox/MyCard.vue";
+export { currUserId } from "../auth/auth-store"
+import { BASEAPI } from "../auth/auth-store";
 
 const route = useRoute();
 const router = useRouter();
-const baseapi = "https://jsonplaceholder.typicode.com";
 export const currPost = ref({});
 
 const fetchPostDetails = async (postId: number) => {
@@ -29,7 +30,7 @@ const fetchPostDetails = async (postId: number) => {
     //ESEGUO DUE RICHIESTE IN PARALLELO E POI AGGREGO I DATI
     const reqs = [`${postId}`, `${postId}/comments`];
     const responses = await Promise.all(
-      reqs.map((req) => window.fetch(`${baseapi}/posts/${req}`))
+      reqs.map((req) => window.fetch(`${BASEAPI}/posts/${req}`))
     );
     const data = await Promise.all(responses.map((res) => res.json()));
     const post = data[0];
