@@ -22,7 +22,7 @@ declare const props: {
   minlength?: number;
 };
 declare function emit(event: "update", payload: updateEvent): void;
-export type updateEvent = { name: string; value: string; errors: string[] };
+export type updateEvent = { name: string; value?: string; errors: string[] };
 
 //EQUIVALE A VECCHIO METHOD
 export function handle(value?: string) {
@@ -32,7 +32,7 @@ export function validate(value?: string | null): string[] {
   //VALIDATION RULE FATTE A MANO...
   const err: string[] = [];
   if (props.required && !value) err.push(`Campo ${name} obbligatorio!`);
-  if (props.minlength && value?.length < props.minlength)
+  if (props.minlength && value?.length! < props.minlength)
     err.push(
       `${props.name} deve essere di almeno ${props.minlength} caratteri!`
     );
