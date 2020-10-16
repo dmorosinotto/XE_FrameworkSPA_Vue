@@ -32,6 +32,13 @@ onMounted(
   async () => await postStore.fetchPostsForUser().catch(alert) //ALERT ERROR
 );
 
+//USO UNA COMPUTED CON getter/setter CUSTOM PER INVOCARE LOGICA store X INTERAGIRE CON v-model
+export const currHashtag = computed({
+  get: () => postStore.currHashtag.value, 
+  set: (val) => postStore.setHashtag(val!)
+});
+
+
 //ESEMPIO ROUTEGARD PER CONTROLARE USCITA
 onBeforeRouteLeave((to, from, next) => {
   if (isLoggedIn()) {
@@ -41,13 +48,6 @@ onBeforeRouteLeave((to, from, next) => {
   } 
   next(); //E POI PROSEGUO CON LA NAVIGAZIONE
 });
-
-//USO UNA COMPUTED CON getter/setter CUSTOM PER INVOCARE LOGICA store X INTERAGIRE CON v-model
-export const currHashtag = computed({
-  get: () => postStore.currHashtag.value,
-  set: (val) => postStore.setHashtag(val!)
-});
-
 
 export default {};
 </script>
