@@ -2,7 +2,7 @@ import { ref, reactive, watchEffect } from "./vue.esm-browser.js";
 
 export default {
 	template: `Welcome to {{ msg }}
-            <hr v-on:dblclick="magic"/>
+            <hr />
             I'll talk about: {{about}} <button @click="choose">FAVORITE FW</button>
             <br />
             clock: {{ tick }} <button v-on:click="updateTime">UPD NOW</button>
@@ -28,9 +28,6 @@ export default {
 			const frameworks = ["Angular", "Blazor", "Vue.js", "React"];
 			this.about = frameworks[Math.floor(Math.random() * frameworks.length)];
 		},
-		magic() {
-			alert("MAGIC");
-		}
 	},
 	watch: {
 		about: function (val, oldVal) {

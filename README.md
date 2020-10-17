@@ -2,16 +2,15 @@
 
 XE Framework SPA Vue - Session 16-10-2020
 
-This repo contains [slides](assets/slides.pdf) and demo [app](App.vue) for my [XE](https://www.xedotnet.org/) online session about [SPA Frameworks](https://www.xedotnet.org/eventi/online-meeting-spa-framework-a-confronto/) where I talk about [Vue.js](https://v3.vuejs.org)
+This repo contains [slides](slides/slides.pdf) and demo [app](src/App.vue) for my [XE](https://www.xedotnet.org/) online session about [SPA Frameworks](https://www.xedotnet.org/eventi/online-meeting-spa-framework-a-confronto/) where I talk about [Vue.js](https://v3.vuejs.org)
 
 ## Initial setup project
 
 I used latest [official release](https://github.com/vuejs/vue-next/releases/tag/v3.0.0) version of **Vue 3** and used [VITE](https://github.com/vitejs/vite) for easy setup the solution:
 
 ```bash
-yarn init -y
-yarn add vite
-yarn add vue@next vue-router@next
+npm init vite-app
+npm i vue@next vue-router@next
 ```
 
 I also decide to use the **great** [TypeScript](https://www.typescriptlang.org) support to develop all the solution, you can find more about the new SFC syntax that I used here:
@@ -26,9 +25,9 @@ To try my project you have to
 ```bash
 git clone https://github.com/dmorosinotto/XE_FrameworkSPA_Vue
 cd XE_FrameworkSPA_Vue
-yarn install
-yarn run basics
-yarm vite
+npm install
+npm run dev:basics
+npm run dev:vue
 
 -- OR SIMPLY RUN IT WITH
 npm start
@@ -75,13 +74,7 @@ echo 'import { createApp, ref } from "vue/dist/vue.esm-browser.js";' >> index.js
 echo 'window.myapp = createApp({setup() { const msg = ref("XE Vue"); return { msg }; }}).mount("#app");' >> index.js
 ```
 
-And then you can execute the app with
-
-```bash
-yarn vite
-```
-
-to see it in the browser go to `http://localhost:3000`
+And then you can execute the app with **`vite`** to see it in the browser go to `http://localhost:3000`
 
 When you change `index.js` you'll get instant reload/update in your browser thanks to HMR support by Vite 🚀
 

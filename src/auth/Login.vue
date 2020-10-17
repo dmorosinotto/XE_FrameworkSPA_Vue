@@ -9,6 +9,7 @@
         name="username"
         v-bind:value="frm.username.value"
         v-on:update="updField"
+        placeholder="Try with Bret security first ^_^"
         required
       ></my-input>
       <MyInput
